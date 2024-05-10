@@ -51,8 +51,8 @@ jobs:
           Changes in this Release
           - First Change
           - Second Change
-          draft: false
-          prerelease: false
+        draft: false
+        prerelease: false
   
     - name: Upload Release Asset
       id: upload-release-asset 
