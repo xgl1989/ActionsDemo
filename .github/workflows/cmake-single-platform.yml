@@ -4,9 +4,8 @@ name: CMake on a single platform
   
 on:  
   push:  
-    branches: [ "main" ]  
-  pull_request:  
-    branches: [ "main" ]  
+    tags:  
+      - 'v*' # 当推送标签时触发，例如 v1.0.0  
   
 env:  
   BUILD_TYPE: Release  
