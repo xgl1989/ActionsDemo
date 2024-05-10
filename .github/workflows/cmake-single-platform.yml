@@ -49,7 +49,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  
       with:  
         files: |  
-          myapp.tar.gz  
+          testboost.tar.gz  
         name: Release ${{ env.VERSION }}  
         body: "Release description"  
         draft: false  
