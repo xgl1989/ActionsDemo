@@ -5,8 +5,10 @@ project(testboost LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)  
 set(CMAKE_CXX_STANDARD_REQUIRED ON)  
   
-# 使用 find_package 而不是硬编码路径  
 find_package(Boost REQUIRED COMPONENTS unit_test_framework system)  
+if(NOT Boost_FOUND)  
+    message(FATAL_ERROR "Could not find Boost")  
+endif()
   
 if(NOT Boost_FOUND)  
     message(FATAL_ERROR "Could not find Boost")  
