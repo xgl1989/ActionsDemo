@@ -39,25 +39,28 @@ jobs:
     - name: Extract version from tag  
       run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
   
-    - name: Create Release  
-      id: create_release  
-      uses: actions/create-release@v1  
-      env:  
-        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  
-      with:  
-        tag_name: ${{ github.ref_name }} # 使用 github.ref_name 来获取标签名（不含 refs/tags/ 前缀）  
-        release_name: Release ${{ github.ref_name }}  
-        body: "Release description"  
-        draft: false  
-        prerelease: false  
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
+          draft: false
+          prerelease: false
   
-    - name: Upload Release Asset  
-      id: upload-release-asset   
-      uses: actions/upload-release-asset@v1  
-      env:  
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-      with:  
-        upload_url: ${{ steps.create_release.outputs.upload_url }}  
-        asset_path: ./testboost.tar.gz  
-        asset_name: testboost.tar.gz  
-        asset_content_type: application/gzip
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./testboost.zip
+        asset_name: testboosts.zip
+        asset_content_type: application/zip
