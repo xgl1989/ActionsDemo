@@ -28,7 +28,9 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: apt install libboost-dev
-      run: apt install libboost-dev
+      run: 
+        sudo apt update
+        sudo apt install libboost-dev
       
     - name: Build
       # Build your program with the given configuration
