@@ -45,8 +45,8 @@ jobs:
       env:  
         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  
       with:  
-        tag_name: ${{ github.ref }}  
-        release_name: Release ${{ env.VERSION }}  
+        tag_name: ${{ github.ref_name }} # 使用 github.ref_name 来获取标签名（不含 refs/tags/ 前缀）  
+        release_name: Release ${{ github.ref_name }}  
         body: "Release description"  
         draft: false  
         prerelease: false  
