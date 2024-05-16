@@ -1,26 +1,22 @@
-name: Test workflow_dispatch  
+name: Manual Workflow  
   
 on:  
   workflow_dispatch:  
     inputs:  
       logLevel:  
-        description: 'Log level'         
-        required: true    
-        default: 'warning'    
-        type: choice    
-        options:    
-        - info    
-        - warning    
+        description: 'Log level'       
+        required: true  
+        default: 'warning'  
+        type: choice  
+        options:  
+        - info  
+        - warning  
         - error  
   
 jobs:  
   build:  
     name: Build  
     runs-on: ubuntu-latest  
-      
-    steps:  # 这里与上面的name和runs-on缩进对齐  
-      - name: checkout  
-        uses: actions/checkout@v4  
-        
-      - name: Echo a message    
+    steps:  
+      - name: Echo a message  
         run: echo "Running the build with log level: ${{ github.event.inputs.logLevel }}"
