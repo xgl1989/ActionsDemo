@@ -11,7 +11,11 @@ on:
         - info
         - warning
         - error  
-  
+
+  push:
+   branches:
+     - "**"
+    
 jobs:
   build:
     name: Build
