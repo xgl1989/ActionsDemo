@@ -35,6 +35,12 @@ jobs:
         id: manual_input_check  
         run: | # 这里使用 | 来表示多行字符串（如果需要的话）  
           echo "This is the check_workflow_inputs job"  
+          if [ -n "${{ github.event.inputs.version-override }}"]: then
+            echo "versionArg=-Pversion=${{ github.event.inputs.version-override }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "versionArg=" >> "$GITHUB_OUTPUT"
+          fi
+          
           # 这里可以添加其他命令来检查手动输入的参数  
           # 比如，假设您有一个输入参数叫 version，您可能会这样做：  
           # versionArg=$(echo "$VERSION_INPUT" | tr '[:upper:]' '[:lower:]')  
