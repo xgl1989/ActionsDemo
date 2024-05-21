@@ -12,9 +12,16 @@ on:
         - warning
         - error  
 
+      version-override:
+        description: 'version string'
+        required: false
+        default: ""
+        type: string
+          
+
   push:
    branches:
-     - "**"
+     - "main"
     
 jobs:
   build:
@@ -22,4 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Echo a message
-      run: echo "Running the build with log level:${{ github.event.inputs.logLevel }}"
+      run: |-
+        echo "Running the build with log level:${{ github.event.inputs.logLevel }}"
+        echo "Running the build with version string:${{ github.event.inputs.version-override }}"
+
