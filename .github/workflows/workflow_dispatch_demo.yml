@@ -49,5 +49,4 @@ jobs:
       run: |-
         echo "Running the build with log level:${{ github.event.inputs.logLevel }}"
         echo "Running the build with version string:${{ github.event.inputs.version-override }}"
-        echo "GITHUB_OUTPUT :${{ GITHUB_OUTPUT }}"
 
