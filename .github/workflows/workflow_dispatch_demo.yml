@@ -1,4 +1,4 @@
-name: Manual Workflow
+name: Workflow dispatch demo
 on:
   workflow_dispatch:
     inputs:
