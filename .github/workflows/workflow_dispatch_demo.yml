@@ -23,7 +23,24 @@ on:
    branches:
      - "main"
     
-jobs:
+jobs:  
+  check_workflow_inputs:  
+    name: Check Manual Run Inputs  
+    runs-on: ubuntu-latest  
+    outputs:  
+      versionArg: ${{ steps.manual_input_check.outputs.versionArg }}  
+  
+    steps:  
+      - name: Check Manual Run Inputs # 注意这里添加了冒号  
+        id: manual_input_check  
+        run: | # 这里使用 | 来表示多行字符串（如果需要的话）  
+          echo "This is the check_workflow_inputs job"  
+          # 这里可以添加其他命令来检查手动输入的参数  
+          # 比如，假设您有一个输入参数叫 version，您可能会这样做：  
+          # versionArg=$(echo "$VERSION_INPUT" | tr '[:upper:]' '[:lower:]')  
+          # echo "::set-output name=versionArg::$versionArg"  
+          # 注意：上述示例中的 VERSION_INPUT 需要作为工作流的输入来定义
+    
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -32,4 +49,5 @@ jobs:
       run: |-
         echo "Running the build with log level:${{ github.event.inputs.logLevel }}"
         echo "Running the build with version string:${{ github.event.inputs.version-override }}"
+        echo "GITHUB_OUTPUT :${{ GITHUB_OUTPUT }}"
 
