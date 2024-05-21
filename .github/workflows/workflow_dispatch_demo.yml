@@ -10,37 +10,31 @@ on:
         options:  
           - info  
           - warning  
-          - error    
-  
+          - error  
       version-override:  
-        description: 'version string'  
+        description: 'Version string'  
         required: false  
         default: ''  
         type: string  
   
-  push:  
-    branches:  
-      - main  
+jobs:  
+  check_workflow_inputs:  
+    name: Check Manual Run Inputs  
+    runs-on: ubuntu-latest  
+    outputs:  
+      versionArg: ${{ steps.set_version.outputs.versionArg }}  
   
-jobs:    
-  check_workflow_inputs:    
-    name: Check Manual Run Inputs    
-    runs-on: ubuntu-latest    
-    outputs:    
-      versionArg: ${{ steps.manual_input_check.outputs.versionArg }}    
-    
-    steps:    
-      - name: Check Manual Run Inputs  
-        id: manual_input_check  
+    steps:  
+      - name: Set versionArg output  
+        id: set_version  
+        shell: bash  
         run: |  
-          echo "This is the check_workflow_inputs job"  
-          echo "VERSION_OVERRIDE: $VERSION_OVERRIDE"  
           VERSION_ARG=""  
           if [ -n "$VERSION_OVERRIDE" ]; then  
             VERSION_ARG="-Pversion=$VERSION_OVERRIDE"  
-            echo "::set-output name=versionArg::$VERSION_ARG"  
           fi  
           echo "Setting versionArg output to: $VERSION_ARG"  
+          echo "::set-output name=versionArg::$VERSION_ARG"  
         env:  
           VERSION_OVERRIDE: ${{ github.event.inputs.version-override }}  
   
@@ -48,11 +42,7 @@ jobs:
     name: Build  
     runs-on: ubuntu-latest  
     needs: [check_workflow_inputs]  
-    env:  
-      VERSION_ARG: ${{ needs.check_workflow_inputs.outputs.versionArg }}  
     steps:  
-    - name: Echo a message  
-      run: |  
-        echo "Running the build with log level: ${{ github.event.inputs.logLevel }}"  
-        echo "Running the build with version string: ${{ github.event.inputs.version-override }}"  
-        echo "VERSION_ARG: $VERSION_ARG"
+      - name: Echo versionArg  
+        run: |  
+          echo "Building with versionArg: ${{ needs.check_workflow_inputs.outputs.versionArg }}"
