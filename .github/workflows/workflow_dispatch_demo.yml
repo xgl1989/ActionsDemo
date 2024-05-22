@@ -34,10 +34,10 @@ jobs:
         shell: bash  
         run: |  
           VERSION_ARG=""  
-          if [ -n "$VERSION_OVERRIDE" ]; then  
-            VERSION_ARG="$VERSION_OVERRIDE-SNAPSHOT"  
+          if [ -n "${VERSION_OVERRIDE}" ]; then   
+            VERSION_ARG="${VERSION_OVERRIDE}-SNAPSHOT"  
           fi  
-          echo "Setting versionArg output to: $VERSION_ARG"  
+          echo "Setting versionArg output to: $VERSION_ARG" 
           echo "::set-output name=versionArg::$VERSION_ARG"  
         env:  
           VERSION_OVERRIDE: ${{ github.event.inputs.version-override }}  
