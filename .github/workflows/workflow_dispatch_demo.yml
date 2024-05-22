@@ -16,7 +16,11 @@ on:
         required: false  
         default: ''  
         type: string  
-  
+        
+  push:
+    branches:
+      - "main"
+     
 jobs:  
   check_workflow_inputs:  
     name: Check Manual Run Inputs  
