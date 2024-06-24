@@ -12,6 +12,9 @@ on:
 env:  
   BUILD_TYPE: Release  
   
+permissions:
+  contents: write  # 显式设置内容的写权限
+  
 jobs:  
   build:  
     runs-on: ubuntu-latest  
